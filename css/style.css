@@ -93,6 +93,9 @@ body {
 select{
     background: #CD5564;
 }
+.select-clicked{
+    background: #E1E1E1;
+}
 .parameters select{
     height: 30px;
     margin-left: 10px;
@@ -138,12 +141,91 @@ label[for="threeOptions"]{
     display: inline-block;
 }
 
+.calc-btn {
+    position: fixed;
+    top: 620px;
+    left: 780px;
+}
+
+.out{
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 1004px;
+    height: 748px;
 
 
+}
+.label{
+    display: block;
+    position: fixed;
+    top: 180px;
+    left: 170px;
+    width: 300px;
+    
+    line-height: 32px;
+    
+
+    text-align: right;
+}
+
+.insuranceSum{
+    display: block;
+    position: fixed;
+    top: 180px;
+    left: 480px;
+    width: 140px;
+
+    line-height: 32px;
+}
+.insuranceRate{
+    display: block;
+    position: fixed;
+    top: 180px;
+    left: 640px;
+    width: 140px;
+
+    line-height: 32px;
+}
+.insurancePrem{
+    display: block;
+    position: fixed;
+    top: 180px;
+    left: 800px;
+    width: 140px;
+
+    line-height: 32px;
+}
+
+.insuranceSum input, .insuranceRate input, .insurancePrem input{
+    margin-top: 15px;
+    width: inherit;
+    
+    background: #92B8CF;
+    opacity: 0.7;
+    border-radius: 5px;
+}
 
 
-
-
+.insuranceSumLabel{
+    position: fixed;
+    top: 120px;
+    left: 480px;
+    transform: rotate(-45deg);
+}
+.insuranceRateLabel{
+    position: fixed;
+    top: 150px;
+    left: 660px;
+    transform: rotate(-45deg); 
+}
+.insurancePremLabel{
+    position: fixed;
+    top: 110px;
+    left: 800px;
+    transform: rotate(-45deg); 
+}
 
 
 @keyframes magic {
