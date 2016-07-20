@@ -1,0 +1,179 @@
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+    line-height: 14px;
+}
+
+.frame {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1024px;
+    height: 768px;
+    background: #81D4FA url("../img/maks.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.input-data {
+    display: block;
+    width: 540px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-left: 80px;
+}
+
+.input-data-item {
+    margin-bottom: 30px;
+}
+
+.input-data-item input {
+    border: 3px solid #3674B1;
+    border-radius: 8px;
+    height: 40px;
+    opacity: 0.7;
+}
+
+.btn {
+    display: block;
+    width: 140px;
+    height: 45px;
+    background: #289FDD;
+    opacity: 0.9;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 42px;
+    cursor: pointer;
+}
+
+.next-btn {
+    position: fixed;
+    top: 540px;
+    left: 550px;
+}
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+.input-error{
+    border-color: red !important;
+    animation: shake 0.6s;
+}
+
+.parameters{
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 1004px;
+    height: 748px;
+    
+    background-image: url(../img/content-separator.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+select{
+    background: #CD5564;
+}
+.parameters select{
+    height: 30px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+    
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    border-radius: 5px;
+}
+.parameters input{
+    margin-top: 10px;
+}
+.mainK{
+    display: block;
+}
+.upK{
+    display: block;
+    position: fixed;
+    top: 260px;
+    left: 20px;
+    width: 500px;
+    height: 500px;
+   
+}
+.downK{
+    display: block;
+    position: fixed;
+    top: 260px;
+    left: 540px;
+    width: 480px;
+    height: 500px;
+}
+.upK label, .downK label{
+    font-size: 14px;
+    font-weight: 500;
+}
+label[for="threeOptions"]{
+    line-height: 14px !important;
+}
+.groupRadio, .wholeOrNot{
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+@keyframes magic {
+    0% {
+        opacity: 0.7;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    40% {
+        opacity: 0.45;
+    }
+    60% {
+        opacity: 0.30;
+    }
+    80% {
+        opacity: 0.15;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+.magic{
+    animation: magic 0.6s;
+}
+
