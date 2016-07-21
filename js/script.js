@@ -1,4 +1,5 @@
 var inputDataFrame = document.querySelector(".input-data");
+var parametersFrame = document.querySelector(".parameters");
 //value
 var mainBuilding = document.querySelector("#mainBuilding");
 var outBuilding = document.querySelector("#outBuilding");
@@ -35,9 +36,9 @@ var parameters = document.querySelector(".parameters");
 
 
 //Koef
-var mainBuildingsK, outBuildingsK, bathK, homeAssetsK, fenceK, civilResponsibilityK;
+var mainBuildingsK=0, outBuildingsK=0, bathK=0, homeAssetsK=0, fenceK=0, civilResponsibilityK=0;
 
-
+var warningBtn = document.querySelector(".warning-btn");
 
 
 
@@ -45,7 +46,7 @@ nextBtn.addEventListener("click", function () {
     next();
 })
 
-window.addEventListener("keydown", function (event) {
+document.querySelector(".input-data").addEventListener("keydown", function (event) {
     if (event.keyCode === 13) {
         next();
     }
@@ -60,7 +61,7 @@ function next() {
         mainBuilding.classList.remove("input-error");
         parameters.classList.add("show");
 
-        console.log("sum: " + calc(mainBuilding, outBuilding, bath, homeAssets, fence));
+        //console.log("sum: " + calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons));
 
         //Если введено дом.имущ
         if (homeAssets.value != 0) {
@@ -82,7 +83,7 @@ function next() {
         }
 
 
-        if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) < 1000000) {
+        if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) < 1000000) {
 
 
 
@@ -123,7 +124,36 @@ homeAssetsComboBox.addEventListener("mouseout", function () {
     }
     if (document.querySelector(".homeAssetsComboBox").options.selectedIndex === 2) {
         document.querySelector(".groupRadio").classList.remove("hide");
-    } else {
+        document.querySelector(".warning").classList.remove("warningPosition1");
+        document.querySelector(".warning").classList.remove("warningPosition2");
+        document.querySelector(".warning").classList.remove("warningPosition3");
+        document.querySelector(".warning").classList.remove("warningPosition4");
+
+
+    } else if (document.querySelector(".homeAssetsComboBox").options.selectedIndex === 1) {
+        if (parseInt(mainBuilding.value)<=1000000 && homeAssets.value > 30000) {
+            document.querySelector(".warning").classList.add("warningPosition1");
+            document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 30 000р";
+        }
+        if (parseInt(mainBuilding.value)>1000000 && homeAssets.value > 45000 && document.querySelector(".choiceAccommodationComboBox").options.selectedIndex == 2) {
+            document.querySelector(".warning").classList.add("warningPosition2");
+            document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 45 000р";
+        }
+        
+        
+        if(parseInt(mainBuilding.value)>1000000 && document.querySelector(".choiceAccommodationComboBox").options.selectedIndex == 1 && (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))>=1000000 && (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))<3000000 && homeAssets.value > 150000){
+            document.querySelector(".warning").classList.add("warningPosition3");
+            document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 150 000р"; 
+        }
+        
+        if(parseInt(mainBuilding.value)>1000000 && document.querySelector(".choiceAccommodationComboBox").options.selectedIndex == 1 && (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))>=3000000 && homeAssets.value > 450000){
+            document.querySelector(".warning").classList.add("warningPosition4");
+            document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 450 000р"; 
+        }
+        
+        
+        
+        
         document.querySelector(".groupRadio").classList.add("hide");
     }
 
@@ -153,6 +183,32 @@ civilResponsComboBox.addEventListener("mouseout", function () {
 choiceAccommodationComboBox.addEventListener("mouseout", function () {
     if (document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0) {
         document.querySelector(".choiceAccommodationComboBox").classList.add("select-clicked");
+        
+        if(document.querySelector(".choiceAccommodationComboBox").options.selectedIndex == 2){
+            if(parseInt(homeAssets.value)>45000 && parseInt(mainBuilding.value)>1000000){
+                if(document.querySelector(".homeAssetsComboBox").options.selectedIndex == 1){
+                    document.querySelector(".warning").classList.add("warningPosition2");
+                    document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 45 000р";
+                }else if(document.querySelector(".homeAssetsComboBox").options.selectedIndex == 2){
+                    document.querySelector(".warning").classList.remove("warningPosition2");
+                }
+            } 
+        }else if(document.querySelector(".choiceAccommodationComboBox").options.selectedIndex == 1){
+            document.querySelector(".warning").classList.remove("warningPosition1");
+            document.querySelector(".warning").classList.remove("warningPosition2");
+            
+            if((parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))>=1000000 && (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))<3000000 && homeAssets.value > 150000){
+                document.querySelector(".warning").classList.add("warningPosition3");
+                document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 150 000р"; 
+            }
+            
+            if((parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value))>=3000000 && homeAssets.value > 450000){
+                document.querySelector(".warning").classList.add("warningPosition4");
+                document.querySelector(".warning-text").innerHTML = "Страховая сумма по группе \"Имущество без описи\"не более 450 000р"; 
+            }
+        }
+        
+        
     }
 })
 franchiseComboBox.addEventListener("mouseout", function () {
@@ -177,119 +233,184 @@ correction.addEventListener("mouseout", function () {
 })
 
 
-function calc(mainBuilding, outBuilding, bath, homeAssets, fence) {
+function calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) {
     if (!parseInt(mainBuilding.value)) mainBuilding.value = 0;
     if (!parseInt(outBuilding.value)) outBuilding.value = 0;
     if (!parseInt(bath.value)) bath.value = 0;
     if (!parseInt(homeAssets.value)) homeAssets.value = 0;
     if (!parseInt(fence.value)) fence.value = 0;
+    if (!parseInt(civilRespons.value)) civilRespons.value = 0;
 
     return parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value);
 }
 
-calcBtn.addEventListener("click", function () {
-    
-    
-    
-    
-    
-    if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) <= 1000000) {
-        if(document.querySelector(".riskPackageComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".choiceAccommodationComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".franchiseComboBox").options.selectedIndex!=0){
-            if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true){
+
+calcBtn.addEventListener("click", function(){
+    //хз почему не работает через функцию
+    if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) <= 1000000) {
+        if (document.querySelector(".riskPackageComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".franchiseComboBox").options.selectedIndex != 0) {
+            if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true) {
                 //1
                 calcK();
                 showOut();
-            } else if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false){
+            } else if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false) {
                 //2
-                if(document.querySelector(".typesOfFenceComboBox").options.selectedIndex!=0){
-                    calcK(); 
+                if (document.querySelector(".typesOfFenceComboBox").options.selectedIndex != 0) {
+                    calcK();
                     showOut();
                 }
-            }else if(civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true){
+            } else if (civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true) {
                 //3
-                if(document.querySelector(".civilResponsibilityComboBox").options.selectedIndex!=0){
-                    calcK(); 
+                if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex != 0) {
+                    calcK();
                     showOut();
                 }
-            }else{
+            } else {
                 //4
-                calcK(); 
+                calcK();
                 showOut();
             }
         }
-    } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) > 1000000){
-        if(document.querySelector(".riskPackageComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".choiceAccommodationComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".franchiseComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".firstRiskComboBox").options.selectedIndex!=0 &&
-           document.querySelector(".correction").options.selectedIndex!=0 &&
-           document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex!=0){
-            
-           
-            
-                if(document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 2 || 
-                   document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 3){
-                if(document.querySelector("#whole").checked || document.querySelector("#onlyDecor").checked){
-                    calcK(); 
+    } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) > 1000000) {
+        if (document.querySelector(".riskPackageComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".franchiseComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".firstRiskComboBox").options.selectedIndex != 0 &&
+            document.querySelector(".correction").options.selectedIndex != 0 &&
+            document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex != 0) {
+
+
+
+            if (document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 2 ||
+                document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 3) {
+                if (document.querySelector("#whole").checked || document.querySelector("#onlyDecor").checked) {
+                    calcK();
                     showOut();
-                }  
-            }else if(document.querySelector(".typesOfBuildingsComboBox".options.selectedIndex == 1)){
-                     calcK(); 
-                    showOut();
+                }
+            } else if (document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 1) {
+                calcK();
+                showOut();
             }
 
-            if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true){
+            if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true) {
                 //1
                 calcK();
                 showOut();
-            } else if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false){
+            } else if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false) {
                 //2
-                if(document.querySelector(".typesOfFenceComboBox").options.selectedIndex!=0){
-                    calcK(); 
+                if (document.querySelector(".typesOfFenceComboBox").options.selectedIndex != 0) {
+                    calcK();
                     showOut();
                 }
-            }else if(civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true){
+            } else if (civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true) {
                 //3
-                if(document.querySelector(".civilResponsibilityComboBox").options.selectedIndex!=0){
-                    calcK(); 
+                if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex != 0) {
+                    calcK();
                     showOut();
                 }
-            }else{
+            } else {
                 //4
-                calcK(); 
+                calcK();
                 showOut();
             }
-            
-            
-            
-            
-            
-            
+
+
         }
     }
     
+})
 
-    
-    
 
-    
-    
-    
-    
-    
+document.querySelector(".parameters").addEventListener("keydown", function (event) {
+    if (event.keyCode === 13) {
+        //хз почему не работает через функцию
+        
+        if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) <= 1000000) {
+            if (document.querySelector(".riskPackageComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".franchiseComboBox").options.selectedIndex != 0) {
+                if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true) {
+                    //1
+                    calcK();
+                    showOut();
+                } else if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false) {
+                    //2
+                    if (document.querySelector(".typesOfFenceComboBox").options.selectedIndex != 0) {
+                        calcK();
+                        showOut();
+                    }
+                } else if (civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true) {
+                    //3
+                    if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex != 0) {
+                        calcK();
+                        showOut();
+                    }
+                } else {
+                    //4
+                    calcK();
+                    showOut();
+                }
+            }
+        } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) > 1000000) {
+            if (document.querySelector(".riskPackageComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".franchiseComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".firstRiskComboBox").options.selectedIndex != 0 &&
+                document.querySelector(".correction").options.selectedIndex != 0 &&
+                document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex != 0) {
+
+
+
+                if (document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 2 ||
+                    document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 3) {
+                    if (document.querySelector("#whole").checked || document.querySelector("#onlyDecor").checked) {
+                        calcK();
+                        showOut();
+                    }
+                } else if (document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 1) {
+                    calcK();
+                    showOut();
+                }
+
+                if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true) {
+                    //1
+                    calcK();
+                    showOut();
+                } else if (civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false) {
+                    //2
+                    if (document.querySelector(".typesOfFenceComboBox").options.selectedIndex != 0) {
+                        calcK();
+                        showOut();
+                    }
+                } else if (civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true) {
+                    //3
+                    if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex != 0) {
+                        calcK();
+                        showOut();
+                    }
+                } else {
+                    //4
+                    calcK();
+                    showOut();
+                }
+
+
+            }
+        }
+    }
 })
 
 
 
 
 function calcK() {
-    
-    
+
+
     //<1kk
-    
-    if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) <= 1000000) {
+
+    if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) <= 1000000) {
         //<1kk
         if (document.querySelector(".riskPackageComboBox").options.selectedIndex === 1) {
             //Базовый
@@ -358,7 +479,7 @@ function calcK() {
 
 
 
-    } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) > 1000000) {
+    } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence, civilRespons) > 1000000) {
         //>1kk
         if (document.querySelector(".riskPackageComboBox").options.selectedIndex === 1) {
             //Базовый
@@ -521,14 +642,14 @@ function calcK() {
             mainBuildingsK *= 0.9;
             outBuildingsK *= 0.9;
             homeAssetsK *= 0.9;
-            
+
         } else if ((parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value)) > 6000000 &&
             (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value)) <= 10000000
         ) {
             mainBuildingsK *= 0.85;
             outBuildingsK *= 0.85;
             homeAssetsK *= 0.85;
-            
+
         } else if ((parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value)) > 10000000 &&
             (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value)) <= 15000000
         ) {
@@ -541,8 +662,8 @@ function calcK() {
             outBuildingsK *= 0.7;
             homeAssetsK *= 0.7;
         }
-        
-        
+
+
         if (document.querySelector("#protectedByPSC").checked) {
             mainBuildingsK *= 0.85;
             outBuildingsK *= 0.85;
@@ -550,7 +671,7 @@ function calcK() {
             homeAssetsK *= 0.85;
             fenceK *= 0.85;
         }
-        
+
         if (document.querySelector("#autoFireExtSyst").checked) {
             mainBuildingsK *= 0.85;
         }
@@ -562,7 +683,7 @@ function calcK() {
             homeAssetsK *= 0.95;
             fenceK *= 0.95;
         }
-        
+
         if (document.querySelector("#fireExtinguisher").checked) {
             mainBuildingsK *= 0.95;
             outBuildingsK *= 0.95;
@@ -570,39 +691,39 @@ function calcK() {
             homeAssetsK *= 0.95;
             fenceK *= 0.95;
         }
-        
+
         if (document.querySelector("#windowProtection").checked) {
             mainBuildingsK *= 0.95;
         }
-        
+
         if (document.querySelector("#firstRisk").checked) {
             mainBuildingsK *= 0.90;
         }
-        
+
         if (document.querySelector(".correction").options.selectedIndex === 2) {
             mainBuildingsK *= 0.95;
             outBuildingsK *= 0.95;
             bathK *= 0.95;
             homeAssetsK *= 0.95;
-        }else if (document.querySelector(".correction").options.selectedIndex === 3) {
+        } else if (document.querySelector(".correction").options.selectedIndex === 3) {
             mainBuildingsK *= 0.90;
             outBuildingsK *= 0.90;
             bathK *= 0.90;
             homeAssetsK *= 0.90;
-        }else if (document.querySelector(".correction").options.selectedIndex === 4) {
+        } else if (document.querySelector(".correction").options.selectedIndex === 4) {
             mainBuildingsK *= 0.85;
             outBuildingsK *= 0.85;
             bathK *= 0.85;
             homeAssetsK *= 0.85;
-        }else if (document.querySelector(".correction").options.selectedIndex === 5) {
+        } else if (document.querySelector(".correction").options.selectedIndex === 5) {
             mainBuildingsK *= 0.80;
             outBuildingsK *= 0.80;
             bathK *= 0.80;
             homeAssetsK *= 0.80;
         }
-        
-        
-        
+
+
+
     }
 
     //forAll
@@ -630,8 +751,7 @@ function calcK() {
         mainBuildingsK *= 1.2;
     }
 
-    if (document.querySelector(".franchiseComboBox").options.selectedIndex === 1) {} 
-    else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 2) {
+    if (document.querySelector(".franchiseComboBox").options.selectedIndex === 1) {} else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 2) {
         mainBuildingsK *= 0.92;
         outBuildingsK *= 0.92;
         bathK *= 0.92;
@@ -661,20 +781,29 @@ function calcK() {
         civilResponsibilityK *= 0.80;
     }
 
-   
-    console.log("main: " + mainBuildingsK);
-    console.log("out: " + outBuildingsK);
-    console.log("bath: " + bathK);
-    console.log("homeA: " + homeAssetsK);
-    console.log("fence: " + fenceK);
-    console.log("civilR: " + civilResponsibilityK);
+
+//    console.log("main: " + mainBuildingsK);
+//    console.log("out: " + outBuildingsK);
+//    console.log("bath: " + bathK);
+//    console.log("homeA: " + homeAssetsK);
+//    console.log("fence: " + fenceK);
+//    console.log("civilR: " + civilResponsibilityK);
 }
 
 
-function showOut(){
-    document.querySelector(".parameters").classList.remove("show");
+function showOut() {
+    parametersFrame.classList.add("magic");
+    setTimeout(function () {
+        parametersFrame.classList.remove("show");
+        parametersFrame.classList.add("hide");
+    }, 580)
     document.querySelector(".out").classList.remove("hide");
     document.querySelector(".out").classList.add("show");
+
+   
+    
+    
+    
     
     document.querySelector(".insuranceSum1").value = mainBuilding.value;
     document.querySelector(".insuranceSum2").value = outBuilding.value;
@@ -683,27 +812,103 @@ function showOut(){
     document.querySelector(".insuranceSum5").value = fence.value;
     document.querySelector(".insuranceSum6").value = civilRespons.value;
     document.querySelector(".insuranceSum7").value = (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value));
-    
+
     document.querySelector(".insuranceRate1").value = mainBuildingsK.toFixed(2);
     document.querySelector(".insuranceRate2").value = outBuildingsK.toFixed(2);
     document.querySelector(".insuranceRate3").value = bathK.toFixed(2);
     document.querySelector(".insuranceRate4").value = homeAssetsK.toFixed(2);
     document.querySelector(".insuranceRate5").value = fenceK.toFixed(2);
     document.querySelector(".insuranceRate6").value = civilResponsibilityK.toFixed(2);
-    
-    document.querySelector(".insurancePrem1").value = (mainBuildingsK*mainBuilding.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem2").value = (outBuildingsK*outBuilding.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem3").value = (bathK*bath.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem4").value = (homeAssetsK*homeAssets.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem5").value = (fenceK*fence.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem6").value = (civilResponsibilityK*civilRespons.value*0.01).toFixed(2);
-    document.querySelector(".insurancePrem7").value = parseFloat(document.querySelector(".insurancePrem1").value)+
-                                                      parseFloat(document.querySelector(".insurancePrem2").value)+
-                                                      parseFloat(document.querySelector(".insurancePrem3").value)+
-                                                      parseFloat(document.querySelector(".insurancePrem4").value)+
-                                                      parseFloat(document.querySelector(".insurancePrem5").value)+
-                                                      parseFloat(document.querySelector(".insurancePrem6").value);
-    
-  
-    
+
+    document.querySelector(".insurancePrem1").value = (mainBuildingsK * mainBuilding.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem2").value = (outBuildingsK * outBuilding.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem3").value = (bathK * bath.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem4").value = (homeAssetsK * homeAssets.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem5").value = (fenceK * fence.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem6").value = (civilResponsibilityK * civilRespons.value * 0.01).toFixed(2);
+    document.querySelector(".insurancePrem7").value = (parseFloat(document.querySelector(".insurancePrem1").value) +
+        parseFloat(document.querySelector(".insurancePrem2").value) +
+        parseFloat(document.querySelector(".insurancePrem3").value) +
+        parseFloat(document.querySelector(".insurancePrem4").value) +
+        parseFloat(document.querySelector(".insurancePrem5").value) +
+        parseFloat(document.querySelector(".insurancePrem6").value)).toFixed(2);
+
+
+
 }
+
+warningBtn.addEventListener("click", function(){
+    
+    if(document.querySelector(".warning").classList.contains("warningPosition1")) {
+        if (parseInt(document.querySelector(".warning-input").value) <= 30000) {
+            homeAssets.value = document.querySelector(".warning-input").value;
+            document.querySelector(".warning").classList.add("toUp");
+            setTimeout(function () {
+                document.querySelector(".warning").classList.remove("warningPosition1");
+            }, 580)
+            
+        } else {
+            document.querySelector(".warning").classList.add("input-error");
+        }
+
+        
+    }
+    
+    
+    if (document.querySelector(".warning").classList.contains("warningPosition2")) {
+        if (parseInt(document.querySelector(".warning-input").value) <= 45000) {
+            homeAssets.value = document.querySelector(".warning-input").value;
+            document.querySelector(".warning").classList.add("toUp");
+            setTimeout(function () {
+                document.querySelector(".warning").classList.remove("warningPosition1");
+                document.querySelector(".warning").classList.remove("warningPosition2");
+            }, 580)
+
+        } else {
+            document.querySelector(".warning").classList.add("input-error");
+        }
+
+
+    }
+    
+    if (document.querySelector(".warning").classList.contains("warningPosition3")) {
+        if (parseInt(document.querySelector(".warning-input").value) <= 150000) {
+            homeAssets.value = document.querySelector(".warning-input").value;
+            document.querySelector(".warning").classList.add("toUp");
+            setTimeout(function () {
+                document.querySelector(".warning").classList.remove("warningPosition1");
+                document.querySelector(".warning").classList.remove("warningPosition2");
+                document.querySelector(".warning").classList.remove("warningPosition3");
+            }, 580)
+
+        } else {
+            document.querySelector(".warning").classList.add("input-error");
+        }
+
+
+    }
+    
+    if (document.querySelector(".warning").classList.contains("warningPosition4")) {
+        if (parseInt(document.querySelector(".warning-input").value) <= 450000) {
+            homeAssets.value = document.querySelector(".warning-input").value;
+            document.querySelector(".warning").classList.add("toUp");
+            setTimeout(function () {
+                document.querySelector(".warning").classList.remove("warningPosition1");
+                document.querySelector(".warning").classList.remove("warningPosition2");
+                document.querySelector(".warning").classList.remove("warningPosition3");
+                document.querySelector(".warning").classList.remove("warningPosition4");
+            }, 580)
+
+        } else {
+            document.querySelector(".warning").classList.add("input-error");
+        }
+
+
+    }
+    
+})
+
+  
+
+
+

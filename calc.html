@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -39,7 +40,7 @@
 
             <div class="btn next-btn">Вперёд>></div>
         </div>
-        
+
         <div class="parameters hide">
             <div class="mainK">
                 <select class="riskPackageComboBox">
@@ -47,7 +48,7 @@
                     <option value="1">Базовый</option>
                     <option value="2">Полный</option>
                 </select>
-                
+
                 <br>
 
                 <select class="homeAssetsComboBox hide">
@@ -60,9 +61,9 @@
                     <input type="radio" name="group" value="second" id="secondGroup"> 2 группа
                     <input type="radio" name="group" value="third" id="thirdGroup"> 3 группа
                 </div>
-                
+
                 <br>
-                
+
                 <select class="typesOfBuildingsComboBox hide">
                     <option selected disabled>Строение по типу материала и назначению</option>
                     <option value="1">Деревянное</option>
@@ -74,17 +75,17 @@
                     <input type="radio" name="wholeOrNot" value="whole" id="whole"> Строение целиком
                     <input type="radio" name="wholeOrNot" value="onlyDecor" id="onlyDecor"> Только отделка и инж. оборудование
                 </div>
-                
+
                 <br>
-                
+
                 <select class="civilResponsibilityComboBox">
                     <option selected disabled>ГО</option>
                     <option value="1">Одновременно со строением и/или имуществом в нём</option>
                     <option value="2">Одновременно с таунхаусом и/или имуществом в нём</option>
                 </select>
-                 
-                 <br>
-                
+
+                <br>
+
                 <select class="typesOfFenceComboBox">
                     <option selected disabled>Тип материала ограждения</option>
                     <option value="1">Каменные</option>
@@ -92,93 +93,92 @@
                     <option value="3">Деревянные с основанием</option>
                     <option value="4">Деревянные без основания</option>
                 </select>
-                
-                
-                
+
+
+
             </div>
-<!--            end mainK-->
-            
-            
+            <!--            end mainK-->
+
+
             <div class="upK">
-               
+
                 <input type="checkbox" id="buildingIsFinished">
                 <label for="buildingIsFinished">Завершённое строительство</label>
-                
-                <select class="choiceAccommodationComboBox">
+
+                <select class="choiceAccommodationComboBox mrg-top">
                     <option selected disabled>Постоянное или сезонное проживание</option>
                     <option value="1">Постоянное</option>
                     <option value="2">Сезонное</option>
                 </select>
-                
+
                 <br>
-                
+
                 <div class="threeOptions hide">
                     <input type="checkbox" id="threeOptions">
-                    <label for="threeOptions">В деревянном строении (кроме бани) имеется печь/камин;<br>
-                        Баня/сауна/гараж находятся под одной крышей;
-                        Баня находится на расстоянии менее 3м включительно (в т.ч. на соседних участках).
+                    <label for="threeOptions">В деревянном строении (кроме бани) имеется печь/камин;
+                        <br> Баня/сауна/гараж находятся под одной крышей; Баня находится на расстоянии менее 3м включительно (в т.ч. на соседних участках).
                     </label>
                 </div>
-               
-                
+
+
                 <br>
-                
+
                 <div class="rent hide">
                     <input type="checkbox" id="rent">
                     <label for="rent">Строение сдаётся в аренду</label>
                 </div>
-                
-                
+
+
                 <br>
-                
+
                 <div class="part hide">
                     <input type="checkbox" id="part">
                     <label for="part">Страхуется часть строения</label>
                 </div>
-                
+
                 <br>
-                
+
                 <div class="withoutFoundation hide">
                     <input type="checkbox" id="withoutFoundation">
-                    <label for="withoutFoundation">Строение без фундамента</label> 
+                    <label for="withoutFoundation">Строение без фундамента</label>
                 </div>
-                 
+
                 <br>
 
                 <div class="allHomeAssets hide">
                     <input type="checkbox" id="allHomeAssets">
                     <label for="allHomeAssets">Всё домашнее имущество застраховано</label>
                 </div>
-               
+
                 <br>
 
                 <div class="terror hide">
                     <input type="checkbox" id="terror">
                     <label for="terror">От терроризма</label>
                 </div>
-               
+
                 <br>
-                
-                    <select class="firstRiskComboBox hide">
-                        <option selected disabled>Страхование по "По первому риску"</option>
-                        <option value="1">Не применяется</option>
-                        <option value="2">50% - 59%</option>
-                        <option value="3">60% - 69%</option>
-                        <option value="4">70% - 79%</option>
-                        <option value="5">80% и выше</option>
-                    </select>
-              
-             
-                
+
+                <select class="firstRiskComboBox hide">
+                    <option selected disabled>Страхование по "По первому риску"</option>
+                    <option value="1">Не применяется</option>
+                    <option value="2">50% - 59%</option>
+                    <option value="3">60% - 69%</option>
+                    <option value="4">70% - 79%</option>
+                    <option value="5">80% и выше</option>
+                </select>
+
+
+
             </div>
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             <div class="downK">
-               
+
                 <select class="franchiseComboBox">
                     <option selected disabled>Безусловная франшиза</option>
                     <option value="1">Не установлено</option>
@@ -187,54 +187,55 @@
                     <option value="4">10%</option>
                     <option value="5">15%</option>
                 </select>
-                
+
                 <br>
-                
+
                 <div class="protectedByPSC hide">
                     <input type="checkbox" id="protectedByPSC">
                     <label for="protectedByPSC">Территория охраняется ЧОП</label>
                 </div>
-                
+
                 <br>
 
                 <div class="autoFireExtSyst hide">
                     <input type="checkbox" id="autoFireExtSyst">
                     <label for="autoFireExtSyst">Имеется автоматическая система пожаротушения</label>
                 </div>
-               
-                
+
+
                 <br>
-                
+
                 <div class="alarmAndPatrol hide">
                     <input type="checkbox" id="alarmAndPatrol">
-                    <label for="alarmAndPatrol">Имеется сигнализация, патрулирование</label> 
+                    <label for="alarmAndPatrol">Имеется сигнализация, патрулирование</label>
                 </div>
 
                 <br>
-                
+
                 <div class="fireExtinguisher hide">
                     <input type="checkbox" id="fireExtinguisher">
                     <label for="fireExtinguisher">Имеются огнетушители</label>
                 </div>
-                
+
                 <br>
-                
+
                 <div class="windowProtection hide">
                     <input type="checkbox" id="windowProtection">
-                    <label for="windowProtection">Имеются металлическая/блокировочная дверь, <br> решётки, ставни на окнах</label>
+                    <label for="windowProtection">Имеются металлическая/блокировочная дверь,
+                        <br> решётки, ставни на окнах</label>
                 </div>
 
-                
+
                 <br>
-                
+
                 <div class="firstRisk hide">
                     <input type="checkbox" id="firstRisk">
                     <label for="firstRisk">Страхование "на один случай"</label>
                 </div>
-               
-                
+
+
                 <br>
-                
+
                 <select class="correction hide">
                     <option selected disabled>Поправочный коэффициент</option>
                     <option value="1">Нет</option>
@@ -243,21 +244,21 @@
                     <option value="4">0.85</option>
                     <option value="5">0.80</option>
                 </select>
-                
-                
-                
+
+
+
             </div>
-<!--            end downK-->
-            
-            
-            
-            <div class="btn calc-btn">Посчитать</div>
+            <!--            end downK-->
+
+
+
+            <div class="calc-btn btn">Посчитать</div>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <div class="out hide">
             <div class="label">
                 <p>Основное строение</p>
@@ -268,7 +269,7 @@
                 <p>Гражданская ответственность</p>
                 <p>Итого:</p>
             </div>
-            
+
             <span class="insuranceSumLabel">
                 Страховая сумма
             </span>
@@ -281,7 +282,7 @@
                 <input class="insuranceSum6" type="text">
                 <input class="insuranceSum7" type="text">
             </div>
-            
+
             <span class="insuranceRateLabel">
                 Тариф
             </span>
@@ -293,7 +294,7 @@
                 <input class="insuranceRate5" type="text">
                 <input class="insuranceRate6" type="text">
             </div>
-            
+
             <span class="insurancePremLabel">
                 Страховая премия
             </span>
@@ -306,11 +307,20 @@
                 <input class="insurancePrem6" type="text">
                 <input class="insurancePrem7" type="text">
             </div>
-            
-            
+
+
         </div>
-           
-       
+
+        <div class="warning">
+            <div class="warning-text">
+                Страховая сумма по группе "123" не более 30 000р
+            </div>
+            <input class="warning-input" type="number">
+            <div class="btn warning-btn">
+                OK
+            </div>
+        </div>
+
     </div>
 
     <script src="js/script.js"></script>
