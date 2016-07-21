@@ -188,64 +188,107 @@ function calc(mainBuilding, outBuilding, bath, homeAssets, fence) {
 }
 
 calcBtn.addEventListener("click", function () {
+    
+    
+    
+    
+    
     if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) <= 1000000) {
+        if(document.querySelector(".riskPackageComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".choiceAccommodationComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".franchiseComboBox").options.selectedIndex!=0){
+            if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true){
+                //1
+                calcK();
+                showOut();
+            } else if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false){
+                //2
+                if(document.querySelector(".typesOfFenceComboBox").options.selectedIndex!=0){
+                    calcK(); 
+                    showOut();
+                }
+            }else if(civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true){
+                //3
+                if(document.querySelector(".civilResponsibilityComboBox").options.selectedIndex!=0){
+                    calcK(); 
+                    showOut();
+                }
+            }else{
+                //4
+                calcK(); 
+                showOut();
+            }
+        }
+    } else if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) > 1000000){
+        if(document.querySelector(".riskPackageComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".choiceAccommodationComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".franchiseComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".firstRiskComboBox").options.selectedIndex!=0 &&
+           document.querySelector(".correction").options.selectedIndex!=0 &&
+           document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex!=0){
+            
+           
+            
+                if(document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 2 || 
+                   document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex == 3){
+                if(document.querySelector("#whole").checked || document.querySelector("#onlyDecor").checked){
+                    calcK(); 
+                    showOut();
+                }  
+            }else if(document.querySelector(".typesOfBuildingsComboBox".options.selectedIndex == 1)){
+                     calcK(); 
+                    showOut();
+            }
 
-        calcK();
-
-
-        //            if(document.querySelector(".riskPackageComboBox").options.selectedIndex!=0 &&
-        //               document.querySelector(".choiceAccommodationComboBox").options.selectedIndex!=0 &&
-        //               document.querySelector(".franchiseComboBox").options.selectedIndex!=0){
-        //                if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true){
-        //                    //1
-        //                    
-        //                    
-        //                } else if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false){
-        //                    //2
-        //                    
-        //
-        //                }else if(civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true){
-        //                    //3
-        //                    
-        //                    
-        //                }else{
-        //                    //4
-        //                }
-        //                    
-        //                
-        //
-        //            }
-
-
-
-
-    } else {
-        calcK();
+            if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == true){
+                //1
+                calcK();
+                showOut();
+            } else if(civilResponsComboBox.disabled == true && typesOfFenceComboBox.disabled == false){
+                //2
+                if(document.querySelector(".typesOfFenceComboBox").options.selectedIndex!=0){
+                    calcK(); 
+                    showOut();
+                }
+            }else if(civilResponsComboBox.disabled == false && typesOfFenceComboBox.disabled == true){
+                //3
+                if(document.querySelector(".civilResponsibilityComboBox").options.selectedIndex!=0){
+                    calcK(); 
+                    showOut();
+                }
+            }else{
+                //4
+                calcK(); 
+                showOut();
+            }
+            
+            
+            
+            
+            
+            
+        }
     }
+    
 
-    if (document.querySelector(".riskPackageComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".homeAssetsComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".typesOfBuildingsComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".civilResponsibilityComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".typesOfFenceComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".choiceAccommodationComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".firstRiskComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".franchiseComboBox").options.selectedIndex != 0 &&
-        document.querySelector(".correction").options.selectedIndex != 0
+    
+    
 
-
-
-    ) {
-
-
-
-
-
-    }
-
+    
+    
+    
+    
+    
 })
 
+
+
+
 function calcK() {
+    
+    
+    //<1kk
+    
     if (calc(mainBuilding, outBuilding, bath, homeAssets, fence) <= 1000000) {
         //<1kk
         if (document.querySelector(".riskPackageComboBox").options.selectedIndex === 1) {
@@ -535,44 +578,42 @@ function calcK() {
         if (document.querySelector("#firstRisk").checked) {
             mainBuildingsK *= 0.90;
         }
-
+        
+        if (document.querySelector(".correction").options.selectedIndex === 2) {
+            mainBuildingsK *= 0.95;
+            outBuildingsK *= 0.95;
+            bathK *= 0.95;
+            homeAssetsK *= 0.95;
+        }else if (document.querySelector(".correction").options.selectedIndex === 3) {
+            mainBuildingsK *= 0.90;
+            outBuildingsK *= 0.90;
+            bathK *= 0.90;
+            homeAssetsK *= 0.90;
+        }else if (document.querySelector(".correction").options.selectedIndex === 4) {
+            mainBuildingsK *= 0.85;
+            outBuildingsK *= 0.85;
+            bathK *= 0.85;
+            homeAssetsK *= 0.85;
+        }else if (document.querySelector(".correction").options.selectedIndex === 5) {
+            mainBuildingsK *= 0.80;
+            outBuildingsK *= 0.80;
+            bathK *= 0.80;
+            homeAssetsK *= 0.80;
+        }
+        
+        
         
     }
 
-
     //forAll
-    if (!document.querySelector("#buildingIsFinished").checked) {
-        mainBuildingsK *= 1.2;
-    }
 
-    if (document.querySelector(".franchiseComboBox").options.selectedIndex === 1) {} else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 2) {
-        mainBuildingsK *= 0.92;
-        outBuildingsK *= 0.92;
-        bathK *= 0.92;
-        homeAssetsK *= 0.92;
-        fenceK *= 0.92;
-        civilResponsibilityK *= 0.92;
-    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 3) {
-        mainBuildingsK *= 0.88;
-        outBuildingsK *= 0.88;
-        bathK *= 0.88;
-        homeAssetsK *= 0.88;
-        fenceK *= 0.88;
-        civilResponsibilityK *= 0.92;
-    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 4) {
-        mainBuildingsK *= 0.84;
-        outBuildingsK *= 0.84;
-        bathK *= 0.84;
-        homeAssetsK *= 0.84;
-        fenceK *= 0.84;
-    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 5) {
-        mainBuildingsK *= 0.80;
-        outBuildingsK *= 0.80;
-        bathK *= 0.80;
-        homeAssetsK *= 0.80;
-        fenceK *= 0.80;
+    if (civilRespons.value) {
+        if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex === 1) {
+            civilResponsibilityK = 0.5;
+        } else if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex === 2) {
+            civilResponsibilityK = 0.7;
+        }
     }
-
     if (fence.value) {
         if (document.querySelector(".typesOfFenceComboBox").options.selectedIndex === 1) {
             fenceK = 0.4;
@@ -585,13 +626,42 @@ function calcK() {
         }
     }
 
-    if (civilRespons.value) {
-        if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex === 1) {
-            civilResponsibilityK = 0.5;
-        } else if (document.querySelector(".civilResponsibilityComboBox").options.selectedIndex === 2) {
-            civilResponsibilityK = 0.7;
-        }
+    if (!document.querySelector("#buildingIsFinished").checked) {
+        mainBuildingsK *= 1.2;
     }
+
+    if (document.querySelector(".franchiseComboBox").options.selectedIndex === 1) {} 
+    else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 2) {
+        mainBuildingsK *= 0.92;
+        outBuildingsK *= 0.92;
+        bathK *= 0.92;
+        homeAssetsK *= 0.92;
+        fenceK *= 0.92;
+        civilResponsibilityK *= 0.92;
+    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 3) {
+        mainBuildingsK *= 0.88;
+        outBuildingsK *= 0.88;
+        bathK *= 0.88;
+        homeAssetsK *= 0.88;
+        fenceK *= 0.88;
+        civilResponsibilityK *= 0.88;
+    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 4) {
+        mainBuildingsK *= 0.84;
+        outBuildingsK *= 0.84;
+        bathK *= 0.84;
+        homeAssetsK *= 0.84;
+        fenceK *= 0.84;
+        civilResponsibilityK *= 0.84;
+    } else if (document.querySelector(".franchiseComboBox").options.selectedIndex === 5) {
+        mainBuildingsK *= 0.80;
+        outBuildingsK *= 0.80;
+        bathK *= 0.80;
+        homeAssetsK *= 0.80;
+        fenceK *= 0.80;
+        civilResponsibilityK *= 0.80;
+    }
+
+   
     console.log("main: " + mainBuildingsK);
     console.log("out: " + outBuildingsK);
     console.log("bath: " + bathK);
@@ -602,8 +672,38 @@ function calcK() {
 
 
 function showOut(){
-    document.querySelector("parameters").classList.add("hide");
-    document.querySelector("out").classList.remove("hide");
-    document.querySelector("out").classList.add("show");
+    document.querySelector(".parameters").classList.remove("show");
+    document.querySelector(".out").classList.remove("hide");
+    document.querySelector(".out").classList.add("show");
+    
+    document.querySelector(".insuranceSum1").value = mainBuilding.value;
+    document.querySelector(".insuranceSum2").value = outBuilding.value;
+    document.querySelector(".insuranceSum3").value = bath.value;
+    document.querySelector(".insuranceSum4").value = homeAssets.value;
+    document.querySelector(".insuranceSum5").value = fence.value;
+    document.querySelector(".insuranceSum6").value = civilRespons.value;
+    document.querySelector(".insuranceSum7").value = (parseInt(mainBuilding.value) + parseInt(outBuilding.value) + parseInt(bath.value) + parseInt(homeAssets.value) + parseInt(fence.value));
+    
+    document.querySelector(".insuranceRate1").value = mainBuildingsK.toFixed(2);
+    document.querySelector(".insuranceRate2").value = outBuildingsK.toFixed(2);
+    document.querySelector(".insuranceRate3").value = bathK.toFixed(2);
+    document.querySelector(".insuranceRate4").value = homeAssetsK.toFixed(2);
+    document.querySelector(".insuranceRate5").value = fenceK.toFixed(2);
+    document.querySelector(".insuranceRate6").value = civilResponsibilityK.toFixed(2);
+    
+    document.querySelector(".insurancePrem1").value = (mainBuildingsK*mainBuilding.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem2").value = (outBuildingsK*outBuilding.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem3").value = (bathK*bath.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem4").value = (homeAssetsK*homeAssets.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem5").value = (fenceK*fence.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem6").value = (civilResponsibilityK*civilRespons.value*0.01).toFixed(2);
+    document.querySelector(".insurancePrem7").value = parseFloat(document.querySelector(".insurancePrem1").value)+
+                                                      parseFloat(document.querySelector(".insurancePrem2").value)+
+                                                      parseFloat(document.querySelector(".insurancePrem3").value)+
+                                                      parseFloat(document.querySelector(".insurancePrem4").value)+
+                                                      parseFloat(document.querySelector(".insurancePrem5").value)+
+                                                      parseFloat(document.querySelector(".insurancePrem6").value);
+    
+  
     
 }
